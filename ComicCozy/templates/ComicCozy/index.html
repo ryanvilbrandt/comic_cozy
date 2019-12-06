@@ -1,9 +1,29 @@
-{% if latest_question_list %}
-    <ul>
-    {% for question in latest_question_list %}
-        <li><a href="{% url 'ComicCozy:detail' question.id %}">{{ question.question_text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'ComicCozy/style.css' %}">
+
+<h1>{{ comic.title }}</h1>
+
+<p><em>Posted: {{ comic.post_date }}</em></p>
+
+<img class="comic-page" src="{% get_media_prefix %}{{ comic.path }}" alt="{{ comic.alt_text }}"/>
+
+<p>
+    <a href={% url "ComicCozy:index" %}{{ comic.earliest_id }}>&lt;&lt;</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <a href={% url "ComicCozy:index" %}{{ comic.previous_id }}>&lt;</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <a href={% url "ComicCozy:index" %}{{ comic.next_id }}>&gt;</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <a href={% url "ComicCozy:index" %}{{ comic.latest_id }}>&gt;&gt;</a>
+</p>
+
+{#{% if latest_question_list %}#}
+{#    <ul>#}
+{#    {% for question in latest_question_list %}#}
+{#        <li><a href="{% url 'ComicCozy:detail' question.id %}">{{ question.question_text }}</a></li>#}
+{#    {% endfor %}#}
+{#    </ul>#}
+{#{% else %}#}
+{#    <p>No polls are available.</p>#}
+{#{% endif %}#}
