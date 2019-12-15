@@ -1,5 +1,5 @@
 from django.db.models import QuerySet
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils import timezone
@@ -14,6 +14,8 @@ class ComicView(generic.DetailView):
     queryset = Comic.objects.filter(post_date__lte=timezone.now())
 
     def get_object(self, queryset=None):
+        if len(self.queryset) == 0:
+            raise Http404("No comics found.")
         latest_comic = self.queryset.latest()
         print(latest_comic)
         if 'pk' not in self.kwargs and 'slug' not in self.kwargs:
