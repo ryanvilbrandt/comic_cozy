@@ -7,7 +7,7 @@ class Comic(models.Model):
 
     title = models.CharField(max_length=200)
     post_date = models.DateTimeField(default=today, unique=True)
-    path = models.ImageField("Image filepath", upload_to="ComicCozy/")
+    path = models.ImageField("Image filepath", upload_to="ComicCozy/comics/")
     alt_text = models.CharField(max_length=200, blank=True)
     tags = models.CharField(max_length=200, blank=True)
     text = models.TextField("Post text", blank=True)
