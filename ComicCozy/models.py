@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
+from .preferences import NavigationBarSetting
 
 class Comic(models.Model):
     today = timezone.datetime.today()

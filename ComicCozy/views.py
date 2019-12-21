@@ -17,17 +17,16 @@ class ComicView(generic.DetailView):
         if len(self.queryset) == 0:
             raise Http404("No comics found.")
         latest_comic = self.queryset.latest()
-        print(latest_comic)
         if 'pk' not in self.kwargs and 'slug' not in self.kwargs:
             comic = latest_comic
         else:
             comic = super().get_object(queryset)
-        comic.earliest_id = self.queryset.earliest().id
+        comic.first_id = self.queryset.earliest().id
         comic.latest_id = latest_comic.id
         try:
             comic.previous_id = self.queryset.filter(post_date__lt=comic.post_date).latest().id
         except self.model.DoesNotExist:
-            comic.previous_id = comic.earliest_id
+            comic.previous_id = comic.first_id
         try:
             comic.next_id = self.queryset.filter(post_date__gt=comic.post_date).earliest().id
         except self.model.DoesNotExist:

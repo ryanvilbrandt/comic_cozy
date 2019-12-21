@@ -1,5 +1,7 @@
 from django.contrib import admin
+from preferences.admin import PreferencesAdmin
 
+from ComicCozy.preferences import NavigationBarSetting
 from .models import Comic
 
 admin.site.site_header = "ComicCozy Admin"
@@ -29,3 +31,4 @@ class ComicAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Comic, ComicAdmin)
+admin.site.register(NavigationBarSetting, PreferencesAdmin)
