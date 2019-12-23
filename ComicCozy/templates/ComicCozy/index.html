@@ -1,62 +1,13 @@
+{% extends "ComicCozy/base.html" %}
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'ComicCozy/style.css' %}">
-
+{% block title %}{{ comic.title }}{% endblock %}
+{% block body %}
 <h1>{{ comic.title }}</h1>
 
 <p><em>Posted: {{ comic.post_date }}</em></p>
 
 <img class="comic-page" src="{% get_media_prefix %}{{ comic.path }}" alt="{{ comic.alt_text }}"/>
 
-<p>
-<table class="navigation-buttons">
-    <tr>
-        <td class="navigation-button-first">
-            <a href={% url "ComicCozy:index" %}{{ comic.first_id }}>
-        {% if preferences.NavigationBarSetting.first_button_image %}
-            <img src="{% get_media_prefix %}{{ preferences.NavigationBarSetting.first_button_image }}">
-        {% else %}
-            {{ preferences.NavigationBarSetting.first_button_text }}
-        {% endif %}
-            </a>
-        </td>
-        <td class="navigation-button-previous">
-            <a href={% url "ComicCozy:index" %}{{ comic.previous_id }}>
-        {% if preferences.NavigationBarSetting.previous_button_image %}
-            <img src="{% get_media_prefix %}{{ preferences.NavigationBarSetting.previous_button_image }}">
-        {% else %}
-            {{ preferences.NavigationBarSetting.previous_button_text }}
-        {% endif %}
-            </a>
-        </td>
-        <td class="navigation-button-next">
-            <a href={% url "ComicCozy:index" %}{{ comic.next_id }}>
-        {% if preferences.NavigationBarSetting.next_button_image %}
-            <img src="{% get_media_prefix %}{{ preferences.NavigationBarSetting.next_button_image }}">
-        {% else %}
-            {{ preferences.NavigationBarSetting.next_button_text }}
-        {% endif %}
-            </a>
-        </td>
-        <td class="navigation-button-last">
-            <a href={% url "ComicCozy:index" %}{{ comic.last_id }}>
-        {% if preferences.NavigationBarSetting.last_button_image %}
-            <img src="{% get_media_prefix %}{{ preferences.NavigationBarSetting.last_button_image }}">
-        {% else %}
-            {{ preferences.NavigationBarSetting.last_button_text }}
-        {% endif %}
-            </a>
-        </td>
-    </tr>
-</table>
-</p>
-
-{#{% if latest_question_list %}#}
-{#    <ul>#}
-{#    {% for question in latest_question_list %}#}
-{#        <li><a href="{% url 'ComicCozy:detail' question.id %}">{{ question.question_text }}</a></li>#}
-{#    {% endfor %}#}
-{#    </ul>#}
-{#{% else %}#}
-{#    <p>No polls are available.</p>#}
-{#{% endif %}#}
+{% include "ComicCozy/navigation_bar.html" %}
+{% endblock body %}
